@@ -7,8 +7,14 @@
 </head>
 <body>
     <script type="module">
-        import {add} from './build/release.js'
-        console.log("add result: ", add(1,2))
+        try {
+            const module = await import('./build/release.js');
+            console.log("Module loaded:", module);
+            console.log("add result: ", module.add(1, 2));
+        } catch (error) {
+            console.error("Error loading module:", error);
+        }
     </script>
+    <h3>hello</h3>
 </body>
 </html>

@@ -7,6 +7,6 @@
         }
     },
     "options": {
-        "buildings": "esm"
+        "bindings": "esm"
     }
 }
