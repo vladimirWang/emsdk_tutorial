@@ -1,16 +1,18 @@
 /** Exported memory */
 export declare const memory: WebAssembly.Memory;
+/** assembly/index/offset */
+export declare const offset: {
+  /** @type `usize` */
+  get value(): number
+};
 /**
- * assembly/index/add
- * @param a `f64`
- * @param b `f64`
- * @returns `f64`
+ * assembly/index/update
+ * @param tick `f32`
  */
-export declare function add(a: number, b: number): number;
+export declare function update(tick: number): void;
 /**
- * assembly/index/sum
- * @param a `f64`
- * @param b `f64`
- * @returns `f64`
+ * assembly/index/resize
+ * @param w `i32`
+ * @param h `i32`
  */
-export declare function sum(a: number, b: number): number;
+export declare function resize(w: number, h: number): void;

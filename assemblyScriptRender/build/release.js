@@ -1,11 +1,22 @@
 async function instantiate(module, imports = {}) {
   const { exports } = await WebAssembly.instantiate(module, imports);
-  return exports;
+  const memory = exports.memory || imports.env.memory;
+  const adaptedExports = Object.setPrototypeOf({
+    offset: {
+      // assembly/index/offset: usize
+      valueOf() { return this.value; },
+      get value() {
+        return exports.offset.value >>> 0;
+      }
+    },
+  }, exports);
+  return adaptedExports;
 }
 export const {
   memory,
-  add,
-  sum,
+  offset,
+  update,
+  resize,
 } = await (async url => instantiate(
   await (async () => {
     const isNodeOrBun = typeof process != "undefined" && process.versions != null && (process.versions.node != null || process.versions.bun != null);

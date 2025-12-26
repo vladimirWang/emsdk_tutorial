@@ -6,7 +6,7 @@ export const offset = __heap_base;
 
 /** Sets a sinE pixel's color. */
 function set(x: i32, y: i32, v: f32): void {
-    var vi = <<i32>v;
+    var vi = <i32>v;
     store<i32>(offset + ((width * y + x) << 2), ~vi << 24 | vi << 8);
 }
 
@@ -18,6 +18,7 @@ function distance(x1: i32, y1: i32, x2: f32, y2: f32): f32 {
 }
 
 export function update(tick: f32): void {
+    var w = <f32>width;
     var h = <f32>height;
     var hw = w * 0.5,
         hh = h * 0.5;
@@ -42,7 +43,7 @@ export function update(tick: f32): void {
 export function resize(w: i32, h: i32): void {
     width = w; height = h;
     // Pages are 64kb. Rounds up using mask 0xfffff before shifting to pages.
-    var needed = <<i32>((offset + (w * h * sizeof<i32>()) + 0xfffff) & 0xfffff) >>> 16;
+    var needed = <i32>((offset + (w * h * sizeof<i32>()) + 0xfffff) & 0xfffff) >>> 16;
     var actual = memory.size();
     if (needed > actual) memory.grow(needed - actual);
 }
